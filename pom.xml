@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>keycloak-extensions</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <keycloak.version>24.0.2</keycloak.version>
+    </properties>
+
+
+    <dependencies>
+<!--        g.apache.maven.plugins:maven-compiler-plugin:3.10.1-->
+<!--        [WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.maven.plugins</groupId>-->
+<!--            <artifactId>maven-install-plugin</artifactId>-->
+<!--            <version>3.9.6</version>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.apache.maven.plugins</groupId>-->
+<!--            <artifactId>maven-deploy-plugin</artifactId>-->
+<!--            <version>3.9.6</version>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.10.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>3.3.1</version>
+        </dependency>
+
+        <!-- Keycloak Core API -->
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-core</artifactId>
+            <version>24.0.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Keycloak Services API -->
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-services</artifactId>
+            <version>24.0.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Keycloak Models API : could not find-->
+<!--        <dependency>-->
+<!--            <groupId>org.keycloak</groupId>-->
+<!--            <artifactId>keycloak-model-api</artifactId>-->
+<!--            <version>24.0.2</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
+
+        <!-- Keycloak SPI API -->
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-server-spi</artifactId>
+            <version>24.0.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-server-spi-private</artifactId>
+            <version>24.0.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Keycloak Auth SPI API : could not find-->
+<!--        <dependency>-->
+<!--            <groupId>org.keycloak</groupId>-->
+<!--            <artifactId>keycloak-auth-spi</artifactId>-->
+<!--            <version>24.0.2</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
+
+        <!-- Keycloak Themes -->
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-themes</artifactId>
+            <version>24.0.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Keycloak Server Core : not found-->
+<!--        <dependency>-->
+<!--            <groupId>org.keycloak</groupId>-->
+<!--            <artifactId>keycloak-server-core</artifactId>-->
+<!--            <version>24.0.2</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
+
+    </dependencies>
+
+
+
+</project>

@@ -1,0 +1,2 @@
+org.example.authenticators.SecretQuestionAuthenticatorFactory
+org.example.authenticators.DateOfBirthAuthenticatorFactory
