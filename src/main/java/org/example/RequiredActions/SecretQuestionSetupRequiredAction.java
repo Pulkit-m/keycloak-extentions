@@ -80,7 +80,7 @@ public class SecretQuestionSetupRequiredAction implements RequiredActionProvider
                 SecretQuestionCredentialModel.createSecretQuestion(question1,answer1));
         sqcp.createCredential(requiredActionContext.getRealm(),
                 requiredActionContext.getUser(),
-                SecretQuestionCredentialModel.createSecretQuestion(question2,answer2));
+                SecretQuestionCredentialModel.createSecretQuestion(question2,answer2)); 
         sqcp.createCredential(requiredActionContext.getRealm(),
                 requiredActionContext.getUser(),
                 SecretQuestionCredentialModel.createSecretQuestion(question3,answer3));

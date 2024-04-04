@@ -16,7 +16,7 @@
                     <label for="totp" class="${properties.kcLabelClass!}"> Provide a Secret Question: </label>
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
-                    <input id="totp" name="secret_question" type="text" class="${properties.kcInputClass!}" placeholder="What was Harry Potter's Favorite Spell?"/>
+                    <input id="totp" name="secret_question_1" type="text" class="${properties.kcInputClass!}" placeholder="What was Harry Potter's Favorite Spell?"/>
                 </div>
             </div>
 
@@ -27,9 +27,62 @@
                     <label for="totp" class="${properties.kcLabelClass!}"> Provide your answer for your question: </label>
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
-                    <input id="totp" name="secret_answer" type="text" class="${properties.kcInputClass!}" placeholder="expelliarmus"/>
+                    <input id="totp" name="secret_answer_1" type="text" class="${properties.kcInputClass!}" placeholder="expelliarmus"/>
                 </div>
             </div>
+
+
+
+            <div class="${properties.kcFormGroupClass!}">
+                <#--  Box to enter question  -->
+                <div class="${properties.kcLabelWrapperClass!}">
+                    <label for="totp" class="${properties.kcLabelClass!}"> Provide a Secret Question: </label>
+                </div>
+                <div class="${properties.kcInputWrapperClass!}">
+                    <input id="totp" name="secret_question_2" type="text" class="${properties.kcInputClass!}" placeholder="What was Harry Potter's Favorite Spell?"/>
+                </div>
+            </div>
+
+            
+            <div class="${properties.kcFormGroupClass!}">
+                <#--  Box to enter answer  -->
+                <div class="${properties.kcLabelWrapperClass!}">
+                    <label for="totp" class="${properties.kcLabelClass!}"> Provide your answer for your question: </label>
+                </div>
+                <div class="${properties.kcInputWrapperClass!}">
+                    <input id="totp" name="secret_answer_2" type="text" class="${properties.kcInputClass!}" placeholder="expelliarmus"/>
+                </div>
+            </div>
+
+
+
+            <div class="${properties.kcFormGroupClass!}">
+                <#--  Box to enter question  -->
+                <div class="${properties.kcLabelWrapperClass!}">
+                    <label for="totp" class="${properties.kcLabelClass!}"> Provide a Secret Question: </label>
+                </div>
+                <div class="${properties.kcInputWrapperClass!}">
+                    <input id="totp" name="secret_question_3" type="text" class="${properties.kcInputClass!}" placeholder="What was Harry Potter's Favorite Spell?"/>
+                </div>
+            </div>
+
+            
+            <div class="${properties.kcFormGroupClass!}">
+                <#--  Box to enter answer  -->
+                <div class="${properties.kcLabelWrapperClass!}">
+                    <label for="totp" class="${properties.kcLabelClass!}"> Provide your answer for your question: </label>
+                </div>
+                <div class="${properties.kcInputWrapperClass!}">
+                    <input id="totp" name="secret_answer_3" type="text" class="${properties.kcInputClass!}" placeholder="expelliarmus"/>
+                </div>
+            </div>
+
+
+
+
+
+
+
 
             <div>  
                 <#--  This is for the Submit button  -->
