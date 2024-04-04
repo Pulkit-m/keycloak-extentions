@@ -19,7 +19,6 @@ public class DateOfBirthAuthenticator implements Authenticator {
     @Override
     public void authenticate(AuthenticationFlowContext authenticationFlowContext) {
         //todo: check if user is configured first?
-        System.out.println("Will keycloak try to render the form at-least?");
         Response challenge = authenticationFlowContext.form()
                 .setAttribute("custom_attribute","value-of-custom-attribute")
                 .createForm("verify-dob.ftl");
@@ -38,7 +37,6 @@ public class DateOfBirthAuthenticator implements Authenticator {
                 "Secret Question: " + secret_question + "\n" +
                 "Secret Answer: " + secret_answer + "\n" +
                 "credentialId" + credentialId);
-        System.out.println("Whatever the user is telling is the truth");
 
         UserModel user = authenticationFlowContext.getUser();
 

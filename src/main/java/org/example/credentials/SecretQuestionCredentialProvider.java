@@ -34,14 +34,14 @@ public class SecretQuestionCredentialProvider implements CredentialProvider<Secr
     @Override
     public boolean isConfiguredFor(RealmModel realm, UserModel user, String credentialType) {
         if (!supportsCredentialType(credentialType)) return false;
-        /*if(user.credentialManager().getStoredCredentialsByTypeStream(credentialType)
-                .count() >= SecretQuestionAuthenticatorFactory.TOTAL_SECURITY_QUESTIONS_REQUIRED){
-            return true;
-        }else{
-            System.out.println("Number of Security Questions are still less than 3, hence No good");
+        if(user.credentialManager().getStoredCredentialsByTypeStream(credentialType)
+                .count() < SecretQuestionAuthenticatorFactory.TOTAL_SECURITY_QUESTIONS_REQUIRED){
+            System.out.println("Number of Security Questions are less than 3, hence Required Action Needs to be called.");
             return false;
-        }*/
-         return user.credentialManager().getStoredCredentialsByTypeStream(credentialType).findAny().isPresent();
+        }else{
+            return true;
+        }
+        // return user.credentialManager().getStoredCredentialsByTypeStream(credentialType).findAny().isPresent();
     }
 
     // this method comes from CredentialInputValidator.
@@ -53,24 +53,27 @@ public class SecretQuestionCredentialProvider implements CredentialProvider<Secr
             return false;
         }
         if (!credentialInput.getType().equals(getType())) {
+            logger.info("The credential types for input are not matching with the required type.");
             return false;
         }
         String challengeResponse = credentialInput.getChallengeResponse();
         if (challengeResponse == null) {
+            logger.info("The user input was found to be null. ");
             return false;
         }
+
+        // the below line fetches the credential secret based on the credential id that has been passed to it
         CredentialModel credentialModel = user.credentialManager()
                 .getStoredCredentialById(credentialInput.getCredentialId());
         SecretQuestionCredentialModel sqcm = getCredentialFromModel(credentialModel);
 
-        System.out.println("Called the Credential Provider to look at the secret Question: " +
-                sqcm.getSecretQuestionCredentialData().getQuestion());
 
         return sqcm.getSecretQuestionSecretData().getAnswer().equals(challengeResponse);
     }
 
     @Override
     public String getType() {
+        // this is nothing but SECRET_QUESTION here.
         return SecretQuestionCredentialModel.TYPE;
     }
 

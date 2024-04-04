@@ -37,7 +37,7 @@ public class SecretQuestionAuthenticator implements Authenticator, CredentialVal
     @Override
     public void authenticate(AuthenticationFlowContext context) {
         // fetch list of available security questions.
-        /*SecretQuestionCredentialProvider credentialProvider = getCredentialProvider(context.getSession());
+        SecretQuestionCredentialProvider credentialProvider = getCredentialProvider(context.getSession());
         // todo: exception handling : get without isPresent for Optional variable.
         HashMap<String,String> SECURITY_QUESTIONS = new HashMap<>();
         context.getUser().credentialManager()
@@ -47,29 +47,29 @@ public class SecretQuestionAuthenticator implements Authenticator, CredentialVal
                     String credentialQuestion = credentialProvider.getCredentialFromModel(credModel)
                             .getSecretQuestionCredentialData().getQuestion();
                     SECURITY_QUESTIONS.put(credentialId, credentialQuestion);
-                });*/
+                });
 
         /*List<String> SECURITY_QUESTIONS = context.getUser().credentialManager()
                 .getStoredCredentialsByTypeStream(CREDENTIAL_TYPE)
                 .map(credModel -> credentialProvider.getCredentialFromModel(credModel)
                         .getSecretQuestionCredentialData().getQuestion()).toList();*/
 
-        /*System.out.println("Found these many Security Questions: ");
+        System.out.println("Found these many Security Questions: ");
         SECURITY_QUESTIONS.keySet().forEach(key->{
             System.out.println(key + " " + SECURITY_QUESTIONS.get(key));
-        });*/
+        });
 
 
-        SecretQuestionCredentialProvider credentialProvider = getCredentialProvider(context.getSession());
+        // SecretQuestionCredentialProvider credentialProvider = getCredentialProvider(context.getSession());
         // todo: exception handling : get without isPresent for Optional variable.
-        CredentialModel credentialModel = context.getUser().credentialManager()
-                .getStoredCredentialsByTypeStream(CREDENTIAL_TYPE).findFirst().get();
-        SecretQuestionCredentialModel sqcm = credentialProvider
-                .getCredentialFromModel(credentialModel);
-        String secret_question = sqcm.getSecretQuestionCredentialData().getQuestion();
+        //CredentialModel credentialModel = context.getUser().credentialManager()
+        //        .getStoredCredentialsByTypeStream(CREDENTIAL_TYPE).findFirst().get();
+        //SecretQuestionCredentialModel sqcm = credentialProvider
+        //        .getCredentialFromModel(credentialModel);
+        //String secret_question = sqcm.getSecretQuestionCredentialData().getQuestion();
 
         Response challenge = context.form()
-                .setAttribute("custom_attribute", secret_question/*SECURITY_QUESTIONS*/)
+                .setAttribute("custom_attribute", /*secret_question*/SECURITY_QUESTIONS)
                 .createForm("secret-question.ftl");
         context.challenge(challenge);
         /*
@@ -88,7 +88,6 @@ public class SecretQuestionAuthenticator implements Authenticator, CredentialVal
      */
     @Override
     public void action(AuthenticationFlowContext context) {
-        System.out.println("Was the question form even rendered?");
         boolean validated = validateAnswer(context);
         if(!validated){
             Response challenge = context.form()
@@ -103,32 +102,71 @@ public class SecretQuestionAuthenticator implements Authenticator, CredentialVal
 
     /**
      * We will recieve the context from the user.
-     * To validate the user's answer, we can use the isValid method that we wrote in SecretQuestionCredentialProvider
+     * To validate the user's answer, we can use the isValid method that we wrote in SecretQuestionCredentialProvider. The isValid method is already setup such that it identifies the credential secret based on the credential id that is extracted from the authenticationFlowContext.
      * @param context
      * @return
+     *
+     * In case of multiple availabe credentials, the form also needs to contain the information of
+     * credential id for the credential that is being used. If not specified, a default credential will
+     * be used, which may or may not be as what is required of us.
      */
     protected boolean validateAnswer(AuthenticationFlowContext context) {
         MultivaluedMap<String, String> formData = context.getHttpRequest().getDecodedFormParameters();
-        String secret = formData.getFirst("secret_answer");
-        String credentialId = formData.getFirst("credentialId");
-        String secret_question = formData.getFirst("secret_question");
+        System.out.println("These are all the available form Data keys: ");
+        formData.keySet().forEach(System.out::println);
+        String secret_answer_1 = formData.getFirst("secret_answer_1");
+        String credentialId1 = formData.getFirst("secret_question_1"); // credentialId is not there i think
+        String secret_answer_2 = formData.getFirst("secret_answer_2");
+        String credentialId2 = formData.getFirst("secret_question_2");
+        String secret_answer_3 = formData.getFirst("secret_answer_3");
+        String credentialId3 = formData.getFirst("secret_question_3");
 
-        System.out.println("Credential Id :??==>" + credentialId);
-        System.out.println("Validate Answer: (for this questino): " + secret_question);
-        /*
-            In case of multiple availabe credentials, the form also needs to contain the information of
-            credential id for the credential that is being used. If not specified, a default credential will
-            be used, which may or may not be as what is required of us.
-         */
-        if (credentialId == null || credentialId.isEmpty()) {
+        System.out.println("The following form data was received: ");
+        System.out.println(credentialId1 + "\n" +
+                secret_answer_1 + "\n" +
+                credentialId2 + "\n" +
+                secret_answer_2 + "\n" +
+                credentialId3 + "\n" +
+                secret_answer_3 + "\n");
+
+
+        // System.out.println("   Trying to fetch question by credentialId: ");
+        // getCredentialProvider(context.getSession())
+
+
+        /* I don't think this below if statement is ever called...*/
+        /*if (credentialId == null || credentialId.isEmpty()) {
+            System.out.println("This statement should not have been reachable.");
             credentialId = getCredentialProvider(context.getSession())
                     .getDefaultCredential(context.getSession(), context.getRealm(), context.getUser()).getId();
-        }
+        }*/
+        return  getCredentialProvider(context.getSession())
+                .isValid(context.getRealm(),context.getUser(),
+                        new UserCredentialModel(credentialId1,
+                                getType(context.getSession()),secret_answer_1))
+                &&
+                getCredentialProvider(context.getSession())
+                        .isValid(context.getRealm(),context.getUser(),
+                        new UserCredentialModel(credentialId2,
+                                getType(context.getSession()),secret_answer_2))
+                &&
+                getCredentialProvider(context.getSession())
+                        .isValid(context.getRealm(),context.getUser(),
+                        new UserCredentialModel(credentialId3,
+                                getType(context.getSession()),secret_answer_3));
 
-        UserCredentialModel input = new UserCredentialModel(credentialId, getType(context.getSession()), secret);
-        return getCredentialProvider(context.getSession()).isValid(context.getRealm(), context.getUser(), input);
+
+
+
+
+//        UserCredentialModel input = new UserCredentialModel(credentialId, getType(context.getSession()), secret_answer);
+//        return getCredentialProvider(context.getSession()).isValid(context.getRealm(), context.getUser(), input);
     }
 
+    /**
+     * This is set to true when the authenticator requires the user to have already entered their correct login credentials.
+     * @return
+     */
     @Override
     public boolean requiresUser() {
         // this should always return true since, the user needs to be authenticated before being
@@ -183,7 +221,7 @@ public class SecretQuestionAuthenticator implements Authenticator, CredentialVal
 
     /**
      * This comes from Credential Validator class.
-     * This method allows the authenticator to retrieve secret question credential provider.
+     * This method allows the authenticator to retrieve SecretQuestionCredentialProvider.
      * provider provides the credentials that are stored in the database.
      * validator validates the user input against the credentials provided by the credentials provider.
      * @param keycloakSession
