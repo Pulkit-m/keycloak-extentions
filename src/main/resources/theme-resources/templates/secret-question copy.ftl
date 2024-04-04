@@ -78,24 +78,24 @@
         // Get all dropdowns
         var dropdowns = document.querySelectorAll("select")
 
-        // // Extract selected questions from other dropdowns
-        // var selectedValues = {}; 
-        // dropdowns.forEach(function(dropdown){
-        //     // dropdown.value is the value attribute in the option tag
-        //     if(dropdown.value !== ""){
-        //         selectedValues[dropdown.value] = true; 
-        //     }
-        // });
-// 
-        // // Update options for all dropdowns 
-        // dropdowns.forEach(function(dropdown){
-        //     var options = dropdown.querySelectorAll("option"); 
-        //     options.forEach(function(option){
-        //         if(option.value !== ""){
-        //             option.disabled = selectedValues[option.value];
-        //         }
-        //     });
-        // });
+        // Extract selected questions from other dropdowns
+        var selectedValues = {}; 
+        dropdowns.forEach(function(dropdown){
+            // dropdown.value is the value attribute in the option tag
+            if(dropdown.value !== ""){
+                selectedValues[dropdown.value] = true; 
+            }
+        });
+
+        // Update options for all dropdowns 
+        dropdowns.forEach(function(dropdown){
+            var options = dropdown.querySelectorAll("option"); 
+            options.forEach(function(option){
+                if(option.value !== ""){
+                    option.disabled = selectedValues[option.value];
+                }
+            });
+        });
     }
 </script>
     </#if>

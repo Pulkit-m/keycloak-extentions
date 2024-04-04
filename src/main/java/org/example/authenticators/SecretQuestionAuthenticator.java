@@ -115,7 +115,7 @@ public class SecretQuestionAuthenticator implements Authenticator, CredentialVal
         System.out.println("These are all the available form Data keys: ");
         formData.keySet().forEach(System.out::println);
         String secret_answer_1 = formData.getFirst("secret_answer_1");
-        String credentialId1 = formData.getFirst("secret_question_1"); // credentialId is not there i think
+        String credentialId1 = formData.getFirst("secret_question_1"); // secret_question contains the id of the question, credentialId.
         String secret_answer_2 = formData.getFirst("secret_answer_2");
         String credentialId2 = formData.getFirst("secret_question_2");
         String secret_answer_3 = formData.getFirst("secret_answer_3");

@@ -1,5 +1,6 @@
 package org.example.authenticators;
 
+import org.jboss.logging.Logger;
 import org.keycloak.Config;
 import org.keycloak.authentication.Authenticator;
 import org.keycloak.authentication.AuthenticatorFactory;
@@ -39,6 +40,8 @@ public class SecretQuestionAuthenticatorFactory implements AuthenticatorFactory 
         SECURITY_QUESTIONS.put("question-6", "SECURITY_QUESTION_NUMBER 6");
     }
 
+    public static final Logger logger = Logger.getLogger(SecretQuestionAuthenticatorFactory.class);
+
     private static final List<ProviderConfigProperty> configProperties = new ArrayList<ProviderConfigProperty>();
     static{
         ProviderConfigProperty property;
@@ -50,10 +53,10 @@ public class SecretQuestionAuthenticatorFactory implements AuthenticatorFactory 
         configProperties.add(property);
 
         ProviderConfigProperty property1 = new ProviderConfigProperty();
-        property1.setName("another.config.property");
-        property1.setLabel("Another Config Property");
+        property1.setName("min.required.questions");
+        property1.setLabel("Number of Required Questions");
         property1.setType(ProviderConfigProperty.STRING_TYPE);
-        property1.setHelpText("Help for this property");
+        property1.setHelpText("The user trying to login must have to answer these many security questions for logging in.");
         configProperties.add(property1);
     }
 
@@ -68,7 +71,7 @@ public class SecretQuestionAuthenticatorFactory implements AuthenticatorFactory 
     }
 
     /**
-     * flag that specifies whether or not the Authenticator can be configured within the flow.
+     * flag that specifies whether or not the Authenticator can be configured within the flow. This configuration is setup by the admin when he clicks on the settings button to the right side of the execution action in the flow. The configuration that the admin sees over there are the same configuration that we return in the getConfiguration method defined below.
      * @return
      */
     @Override
@@ -103,7 +106,8 @@ public class SecretQuestionAuthenticatorFactory implements AuthenticatorFactory 
 
     @Override
     public String getHelpText() {
-        return "Help text for security question";
+        return "The user Sets up his own security Questions and answers to them. " +
+                "The user needs to remember the answers character by character to be able to login again.";
     }
 
     /**
@@ -122,7 +126,7 @@ public class SecretQuestionAuthenticatorFactory implements AuthenticatorFactory 
      */
     @Override
     public Authenticator create(KeycloakSession keycloakSession) {
-        System.out.println("Initiating authenticator");
+        logger.debug("Initiating authenticator");
         return SINGLETON;
     }
 

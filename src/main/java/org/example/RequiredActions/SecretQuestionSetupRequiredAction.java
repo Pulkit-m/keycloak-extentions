@@ -59,17 +59,31 @@ public class SecretQuestionSetupRequiredAction implements RequiredActionProvider
      */
     @Override
     public void processAction(RequiredActionContext requiredActionContext) {
-        String answer = (requiredActionContext.getHttpRequest()
-                .getDecodedFormParameters().getFirst("secret_answer"));
-        String question = (requiredActionContext.getHttpRequest()
-                .getDecodedFormParameters().getFirst("secret_question"));
+        String answer1 = (requiredActionContext.getHttpRequest()
+                .getDecodedFormParameters().getFirst("secret_answer_1"));
+        String question1 = (requiredActionContext.getHttpRequest()
+                .getDecodedFormParameters().getFirst("secret_question_1"));
+        String answer2 = (requiredActionContext.getHttpRequest()
+                .getDecodedFormParameters().getFirst("secret_answer_2"));
+        String question2 = (requiredActionContext.getHttpRequest()
+                .getDecodedFormParameters().getFirst("secret_question_2"));
+        String answer3 = (requiredActionContext.getHttpRequest()
+                .getDecodedFormParameters().getFirst("secret_answer_3"));
+        String question3 = (requiredActionContext.getHttpRequest()
+                .getDecodedFormParameters().getFirst("secret_question_3"));
 
         SecretQuestionCredentialProvider sqcp = (SecretQuestionCredentialProvider) requiredActionContext
                 .getSession().getProvider(CredentialProvider.class,
                         SecretQuestionCredentialProviderFactory.PROVIDER_ID);
         sqcp.createCredential(requiredActionContext.getRealm(),
                 requiredActionContext.getUser(),
-                SecretQuestionCredentialModel.createSecretQuestion(question,answer));
+                SecretQuestionCredentialModel.createSecretQuestion(question1,answer1));
+        sqcp.createCredential(requiredActionContext.getRealm(),
+                requiredActionContext.getUser(),
+                SecretQuestionCredentialModel.createSecretQuestion(question2,answer2));
+        sqcp.createCredential(requiredActionContext.getRealm(),
+                requiredActionContext.getUser(),
+                SecretQuestionCredentialModel.createSecretQuestion(question3,answer3));
         requiredActionContext.success();
 
         /*
