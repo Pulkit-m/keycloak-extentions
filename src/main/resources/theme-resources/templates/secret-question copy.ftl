@@ -100,3 +100,27 @@
 </script>
     </#if>
 </@layout.registrationLayout>
+
+
+
+<#--  
+    First of all Keycloak is an entirely un-explored territory, 
+    In a broader picture, and theoretically, we can add all kinds of functionality to keycloak, 
+    but not everything has been done practically before. 
+    Keycloak has a really steep learning curve, and since we are in our initial stages, it is taking too much time 
+    for even simpler functionality.
+
+    Keycloak extensions are something that demand attention of their own. We have not been able to focus on anything else 
+    at all. 
+
+    timeline for keycloak-related storeis cannot be specified with clarity. keycloak-specific tasks are still in POC stage. 
+    The code that we have been writing is not production ready code. Developing a production ready application side by side 
+    working on POCs is not that simple.
+
+    There is no technical lead that we can go to to seek help whenever we are stuck somewhere. 
+    
+    There are only two of us who are working on uam right now
+    More number of developers are required if The scope of UAM
+
+
+  -->

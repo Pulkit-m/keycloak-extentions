@@ -29,17 +29,6 @@ public class SecretQuestionAuthenticatorFactory implements AuthenticatorFactory 
             AuthenticationExecutionModel.Requirement.DISABLED
     };
 
-    public static final HashMap<String,String> SECURITY_QUESTIONS = new HashMap<>();
-    static{
-        // label-question
-        SECURITY_QUESTIONS.put("question-1", "SECURITY_QUESTION_NUMBER 1");
-        SECURITY_QUESTIONS.put("question-2", "SECURITY_QUESTION_NUMBER 2");
-        SECURITY_QUESTIONS.put("question-3", "SECURITY_QUESTION_NUMBER 3");
-        SECURITY_QUESTIONS.put("question-4", "SECURITY_QUESTION_NUMBER 4");
-        SECURITY_QUESTIONS.put("question-5", "SECURITY_QUESTION_NUMBER 5");
-        SECURITY_QUESTIONS.put("question-6", "SECURITY_QUESTION_NUMBER 6");
-    }
-
     public static final Logger logger = Logger.getLogger(SecretQuestionAuthenticatorFactory.class);
 
     private static final List<ProviderConfigProperty> configProperties = new ArrayList<ProviderConfigProperty>();
