@@ -1,5 +1,5 @@
 package org.example.authenticators.conditional;
-
+//todo: Not yet added to META-INF.services; this conditional has to be removed!
 import org.keycloak.Config;
 import org.keycloak.authentication.authenticators.conditional.ConditionalAuthenticator;
 import org.keycloak.authentication.authenticators.conditional.ConditionalAuthenticatorFactory;

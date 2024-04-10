@@ -23,7 +23,7 @@
                     </select>
                 </div>
                 <#--  <div class="${properties.kcInputWrapperClass!}">
-                    <input id="totp" name="secret_question_1" type="text" class="${properties.kcInputClass!}" placeholder="What was Harry Potter's Favorite Spell?"/>
+                    <input id="totp" name="secret_question_1" type=" text" class="${properties.kcInputClass!}" placeholder="What was Harry Potter's Favorite Spell?"/>
                 </div>  -->
             </div>
 

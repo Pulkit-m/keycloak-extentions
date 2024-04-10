@@ -1,2 +1,3 @@
 org.example.authenticators.SecretQuestionAuthenticatorFactory
 org.example.authenticators.DateOfBirthAuthenticatorFactory
+org.example.authenticators.BankOtpAuthenticatorFactory

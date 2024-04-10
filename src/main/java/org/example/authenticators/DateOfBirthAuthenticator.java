@@ -18,7 +18,7 @@ import java.util.Map;
 public class DateOfBirthAuthenticator implements Authenticator {
     @Override
     public void authenticate(AuthenticationFlowContext authenticationFlowContext) {
-        //todo: check if user is configured first?
+
         Response challenge = authenticationFlowContext.form()
                 .setAttribute("custom_attribute","value-of-custom-attribute")
                 .createForm("verify-dob.ftl");
@@ -27,7 +27,6 @@ public class DateOfBirthAuthenticator implements Authenticator {
 
     @Override
     public void action(AuthenticationFlowContext authenticationFlowContext) {
-        // abhi kuch bhi bolo mai maan lunga
         MultivaluedMap<String, String> formData = authenticationFlowContext
                 .getHttpRequest().getDecodedFormParameters();
         String secret_answer = formData.getFirst("secret_answer");
