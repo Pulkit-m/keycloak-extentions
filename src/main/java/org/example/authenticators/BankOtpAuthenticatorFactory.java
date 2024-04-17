@@ -13,7 +13,11 @@ import java.util.List;
 public class BankOtpAuthenticatorFactory implements AuthenticatorFactory {
     public static final String PROVIDER_ID = "hdfc-bank-otp-authenticator";
     private static final BankOtpAuthenticator SINGLETON = new BankOtpAuthenticator();
-
+    private static AuthenticationExecutionModel.Requirement[] REQUIREMENT_CHOICES = {
+            AuthenticationExecutionModel.Requirement.REQUIRED,
+            AuthenticationExecutionModel.Requirement.ALTERNATIVE,
+            AuthenticationExecutionModel.Requirement.DISABLED
+    };
 
     /**
      * @return
@@ -44,7 +48,7 @@ public class BankOtpAuthenticatorFactory implements AuthenticatorFactory {
      */
     @Override
     public AuthenticationExecutionModel.Requirement[] getRequirementChoices() {
-        return new AuthenticationExecutionModel.Requirement[0];
+        return REQUIREMENT_CHOICES;
     }
 
     /**

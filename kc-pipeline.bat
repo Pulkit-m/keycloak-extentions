@@ -4,8 +4,8 @@ cd "D:\acer\WorkStation\Development\keycloak-extensions"
 echo Packaging Keycloak Extensions...
 call mvn clean package 
 
-echo Copying Jar file to Keycloak Provider directory... 
-cd "D:\acer\WorkStation\Development\keycloak-23.0.7\providers" 
+cd "D:\acer\WorkStation\Development\keycloak-24.0.2\providers"
+echo Copying Jar file to Keycloak Provider directory...
 @REM dir /b keycloak-extensions* > nul 
 @REM if errorlevel 1 (
 @REM     There already exists a jar file... Removing it
@@ -13,7 +13,11 @@ cd "D:\acer\WorkStation\Development\keycloak-23.0.7\providers"
 @REM ) 
 
 del keycloak-extensions*.jar
-copy D:\acer\WorkStation\Development\keycloak-extensions\target\keycloak-extensions*.jar D:\acer\WorkStation\Development\keycloak-23.0.7\providers\
+echo Removed older extension versions
+copy D:\acer\WorkStation\Development\keycloak-extensions\target\keycloak-extensions*.jar  D:\acer\WorkStation\Development\keycloak-24.0.2\keycloak-24.0.2\providers\
+echo Copied compiled code to provider directory
 
 echo Starting KeyCloak Server 
-call D:\acer\WorkStation\Development\keycloak-23.0.7\bin\kc.bat start-dev
+call D:\acer\WorkStation\Development\keycloak-24.0.2\keycloak-24.0.2\bin\kc.bat start-dev
+
+keycloak-extensions-1.0-SNAPSHOT
