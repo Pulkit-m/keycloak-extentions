@@ -18,6 +18,6 @@ copy D:\acer\WorkStation\Development\keycloak-extensions\target\keycloak-extensi
 echo Copied compiled code to provider directory
 
 echo Starting KeyCloak Server 
-call D:\acer\WorkStation\Development\keycloak-24.0.2\keycloak-24.0.2\bin\kc.bat start-dev
+call D:\acer\WorkStation\Development\keycloak-24.0.2\keycloak-24.0.2\bin\kc.bat start-dev --spi-theme-static-max-age=-1 --spi-theme-cache-themes=false --spi-theme-cache-templates=false
 
 keycloak-extensions-1.0-SNAPSHOT
