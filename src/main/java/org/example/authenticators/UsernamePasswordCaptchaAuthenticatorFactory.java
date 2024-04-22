@@ -12,7 +12,7 @@ import org.keycloak.models.KeycloakSession;
  * as mentioned in the Overriding Providers section in server developers' guide.
  */
 public class UsernamePasswordCaptchaAuthenticatorFactory extends UsernamePasswordFormFactory {
-    // public static final String PROVIDER_ID = "username-password-form-with-captcha";
+     public static final String PROVIDER_ID = "username-password-form-with-captcha";
 
     public static final UsernamePasswordCaptchaAuthenticator SINGLETON = new UsernamePasswordCaptchaAuthenticator();
     public static final AuthenticationExecutionModel.Requirement[] REQUIREMENT_CHOICES;

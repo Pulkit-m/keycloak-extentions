@@ -12,9 +12,12 @@ import org.keycloak.models.UserCredentialModel;
 import org.keycloak.models.UserModel;
 import org.keycloak.models.utils.FormMessage;
 
+import java.util.Random;
+
 public class UsernamePasswordCaptchaAuthenticator extends UsernamePasswordForm {
 
-
+    private String CAPTCHA;
+    private final int captchaLength = 6;
     /**
      * I took this method from Parent class, which is UsernamePasswordForm.
      * @param context: Authentication Flow Context
@@ -28,7 +31,7 @@ public class UsernamePasswordCaptchaAuthenticator extends UsernamePasswordForm {
         if (!formData.isEmpty()) {
             forms.setFormData(formData);
         }
-        forms.setAttribute("custom_attribute", "ABC123");
+        forms.setAttribute("custom_attribute", generateCaptcha(captchaLength));
         return forms.createLoginUsernamePassword();
     }
 
@@ -49,8 +52,7 @@ public class UsernamePasswordCaptchaAuthenticator extends UsernamePasswordForm {
                 form.setError(error, new Object[0]);
             }
         }
-
-        form.setAttribute("custom_attribute","NEWCAP");
+        form.setAttribute("custom_attribute",generateCaptcha(captchaLength));
         return this.createLoginForm(form);
     }
 
@@ -78,7 +80,44 @@ public class UsernamePasswordCaptchaAuthenticator extends UsernamePasswordForm {
      */
     protected boolean validateCaptcha(AuthenticationFlowContext context,
                                    MultivaluedMap<String, String> formData){
-        System.out.println("Checking Captcha:   Currently return true no matter what.");
-        return true;
+        String userCaptcha = (String) formData.getFirst("captcha");
+        if (userCaptcha != null && !userCaptcha.isEmpty()) {
+            if(checkCaptcha(userCaptcha)){
+                context.success();
+                return true;
+            }else{
+                return this.BadCaptchaHandler(context, false);
+            }
+        }else{
+            return this.BadCaptchaHandler(context,true);
+        }
+    }
+
+    private boolean BadCaptchaHandler(AuthenticationFlowContext context,boolean isEmptyCaptcha){
+        context.getEvent().error("invalid captcha entered");
+        Response challengeResponse = this.challenge(context, "Invalid Captcha Entered", "captcha");
+        if (isEmptyCaptcha) {
+            context.forceChallenge(challengeResponse);
+        } else {
+            context.failureChallenge(AuthenticationFlowError.INVALID_CREDENTIALS, challengeResponse);
+        }
+        return false;
+    }
+
+    private String generateCaptcha(int n){
+        Random rand = new Random(62);
+        String chrs = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        StringBuilder captcha = new StringBuilder();
+        while(n-->0){
+            int index = (int)(Math.random()*62);
+            captcha.append(chrs.charAt(index));
+        }
+        this.CAPTCHA = captcha.toString();
+        return captcha.toString();
+    }
+
+    private boolean checkCaptcha(String user_captcha){
+        return this.CAPTCHA.equals(user_captcha);
     }
 }

@@ -27,8 +27,8 @@ public class DateOfBirthAuthenticator implements Authenticator {
 
     @Override
     public void action(AuthenticationFlowContext authenticationFlowContext) {
-        MultivaluedMap<String, String> formData = authenticationFlowContext
-                .getHttpRequest().getDecodedFormParameters();
+            MultivaluedMap<String, String> formData = authenticationFlowContext
+                    .getHttpRequest().getDecodedFormParameters();
         String secret_answer = formData.getFirst("secret_answer");
         String secret_question = formData.getFirst("secret_question");
         String credentialId = formData.getFirst("credentialId");
